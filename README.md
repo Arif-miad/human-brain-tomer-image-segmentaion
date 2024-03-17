@@ -24,8 +24,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-imge_path = "/content/Image.png"
-image = cv2.imread(imge_path, cv2.IMREAD_GRAYSCALE)
+
 
 
 ```
@@ -34,9 +33,13 @@ image = cv2.imread(imge_path, cv2.IMREAD_GRAYSCALE)
 ### I can  add to setup:
 - Step 1: load image_path
 - Step 2: read image
+``` python
+
+```
 
 # Find out  orginal image to edge and contours of image
-```blur = cv2.GaussianBlur(image, (5,5),0)
+``` python
+blur = cv2.GaussianBlur(image, (5,5),0)
 edge = cv2.Canny(blur, 100, 200)
 contours, hierarchy = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 contour_image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
@@ -66,9 +69,54 @@ plt.show()
 ```
 ![image](https://github.com/Arif-miad/human-brain-tomer-image-segmentaion/assets/83044522/b257e86e-2ed8-4906-a8b6-5eaa5dffa50c)
 
+```python
+image_path = "/content/Image.png"
+image = cv2.imread(image_path)
+gray= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+blur = cv2.GaussianBlur(gray, (5, 5), 0)
+ret, binary = cv2.threshold(blur, 128, 255, cv2.THRESH_BINARY+ cv2.THRESH_OTSU)
+
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+contour_image = image.copy()
+cv2.drawContours(contour_image, contours, -1, (0, 255, 0), 3)
+
+
+gray= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+
+fig, axs = plt.subplots(2, 2, figsize = (10, 10))
+
+
+
+axs[0, 0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+axs[0, 0].set_title("Orginal Image")
+axs[0, 0].axis("off")
+
+
+axs[0, 1].imshow(gray, cmap = "gray")
+axs[0, 1].set_title("GraY Image")
+axs[0, 1].axis("off")
+
+
+axs[1, 0].imshow(binary, cmap = "gray")
+axs[1, 0].set_title("BINARY Image")
+axs[1, 0].axis("off")
+
+axs[1, 1].imshow(cv2.cvtColor(contour_image, cv2.COLOR_BGR2RGB))
+axs[1, 1].set_title("Contour Image")
+axs[1, 1].axis("off")
+
+
+plt.show()
+```
+![image](https://github.com/Arif-miad/human-brain-tomer-image-segmentaion/assets/83044522/9916b34d-db0e-4ac0-9c5f-565fe691709d)
 
  
-
+```
+i am  using K-means clustering for image edge connection contouns and describe the image and find more imformation this image
+```
  
 
 
